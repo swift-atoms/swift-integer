@@ -10,9 +10,9 @@ let package = Package(
         .library(name: "Integer Foundation Integration", targets: ["Integer Foundation Integration"]),
         .library(name: "Integer Test Support", targets: ["Integer Test Support"]),
     ],
-    dependencies: [],
+    dependencies: [.package(url: "https://github.com/swift-atoms/swift-rounding.git", branch: "main")],
     targets: [
-        .target(name: "Integer", path: "Sources/Integer"),
+        .target(name: "Integer", dependencies: [.product(name: "Rounding", package: "swift-rounding")], path: "Sources/Integer"),
         .target(name: "Integer Foundation Integration", dependencies: ["Integer"], path: "Sources/Integer Foundation Integration"),
         .target(name: "Integer Test Support", dependencies: ["Integer"], path: "Tests/Support"),
         .testTarget(name: "Integer Tests", dependencies: ["Integer", "Integer Foundation Integration", "Integer Test Support"], path: "Tests/Integer Tests"),
