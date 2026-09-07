@@ -1,8 +1,8 @@
 import Integer
 import Testing
 
-@Suite struct IntegerShiftBoundaryTests {
-    @Test func signedBytesAgreeWithWiderDivisionOracle() throws {
+@Suite struct `Integer shifts cover extreme counts and signed boundaries` {
+    @Test func `Signed byte shifts agree with a wider division oracle`() throws {
         let rules: [(Rounding, FloatingPointRoundingRule)] = [
             (.down, .down), (.up, .up), (.zero, .towardZero), (.away, .awayFromZero),
             (.even, .toNearestOrEven), (.nearest(.away), .toNearestOrAwayFromZero),
@@ -17,7 +17,7 @@ import Testing
         }
     }
 
-    @Test func exactAndExtremeCounts() throws {
+    @Test func `Exact shifts reject lost bits and extreme counts remain defined`() throws {
         #expect(throws: Rounding.Error.inexact) { try Int8(-3).shifted.right(by: 1, rounding: .exact) }
         #expect(try Int8(-3).shifted.right(by: Int.max, rounding: .even) == 0)
         #expect(try Int8(-3).shifted.right(by: Int.max, rounding: .down) == -1)

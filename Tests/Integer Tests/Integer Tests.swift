@@ -2,8 +2,8 @@ import Integer
 import Testing
 import Foundation
 
-@Suite struct IntegerTests {
-    @Test func signedArithmeticAgainstMachineOracle() throws {
+@Suite struct `Integer arithmetic preserves exact values` {
+    @Test func `Signed arithmetic agrees with a machine integer oracle`() throws {
         for a in -75...75 {
             for b in -35...35 {
                 let x = Integer(a), y = Integer(b)
@@ -20,7 +20,7 @@ import Foundation
         }
     }
 
-    @Test func literalParsingAndConversions() throws {
+    @Test func `Literals parse and fixed width conversions are explicit`() throws {
         let large: Integer = 123456789012345678901234567890123456789012345678901234567890
         #expect(large.description == "123456789012345678901234567890123456789012345678901234567890")
         let negative: Integer = -123456789012345678901234567890123456789012345678901234567890
@@ -39,7 +39,7 @@ import Foundation
         #expect(try JSONDecoder().decode(Integer.self, from: JSONEncoder().encode(large)) == large)
     }
 
-    @Test func rootsGCDAndDivisionByZero() throws {
+    @Test func `Roots and common divisors remain exact and division by zero fails`() throws {
         #expect(Integer(81).root(4) == 3)
         #expect(Integer(-27).root(3) == -3)
         #expect(Integer(-27).root(2) == nil)
@@ -51,8 +51,8 @@ import Foundation
     }
 }
 
-extension IntegerTests {
-    @Test func arbitraryPrecisionOracleFixtures() throws {
+extension `Integer arithmetic preserves exact values` {
+    @Test func `Arbitrary precision operations agree with independent oracle fixtures`() throws {
         let fixtures: [(String, String, String, String, String, String)] = [
             ("307658989004993690921956436663877647187", "23686912387220725725", "307658989004993690945643349051098372912", "7287491517702190115757033630937159149507216980355644785575", "12988564485550177444", "842522895672100287"),
             ("-249556762006825026580100874381405690032009230229", "-795258807488402181702790", "-249556762006825026580101669640213178434190933019", "198462212954214663518651587938094350715982110608854249556570496361638910", "313805719165788035980489", "-218235681215178772365919"),

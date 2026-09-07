@@ -2,8 +2,8 @@ import Testing
 
 import Integer
 
-@Suite struct IntegerDivisibilityBoundaryTests {
-    @Test func signedMinimaAreWidenedBeforeTakingMagnitudes() {
+@Suite struct `Integer divisibility covers signed boundaries` {
+    @Test func `Signed minima are widened before taking magnitudes`() {
         #expect(Integer.gcd(Int8.min, 2) == 2)
         #expect(Integer.gcd(Int8.min, 0) == 128)
         #expect(Integer.lcm(Int8.min, 3) == 384)
@@ -11,7 +11,7 @@ import Integer
         #expect(Integer.lcm(Int8.min, 3).exactly(Int8.self) == nil)
     }
 
-    @Test func divisibilityIdentityAcrossSignedByteDomain() throws {
+    @Test func `The divisibility identity holds across the signed byte domain`() throws {
         for a in -128...127 {
             for b in -12...12 {
                 let x = Integer(a), y = Integer(b)
@@ -27,15 +27,15 @@ import Integer
     }
 }
 
-@Suite("Integer.gcd")
-struct IntegerGCDTests {
-    @Suite struct Unit {}
-    @Suite struct EdgeCase {}
-    @Suite struct Integration {}
-    @Suite(.serialized) struct Performance {}
+@Suite
+struct `Integer divisibility finds common factors and multiples` {
+    @Suite struct `Unit tests` {}
+    @Suite struct `Edge cases` {}
+    @Suite struct `Integration tests` {}
+    @Suite(.serialized) struct `Performance tests` {}
 }
 
-extension IntegerGCDTests.Unit {
+extension `Integer divisibility finds common factors and multiples`.`Unit tests` {
     @Test
     func `GCD of 24 and 36 equals 12`() {
         #expect(Integer.gcd(24, 36) == 12)
@@ -67,7 +67,7 @@ extension IntegerGCDTests.Unit {
     }
 }
 
-extension IntegerGCDTests.EdgeCase {
+extension `Integer divisibility finds common factors and multiples`.`Edge cases` {
     @Test
     func `GCD with zero returns other value`() {
         #expect(Integer.gcd(0, 5) == 5)

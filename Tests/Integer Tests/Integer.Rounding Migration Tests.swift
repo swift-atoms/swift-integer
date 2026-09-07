@@ -1,15 +1,15 @@
 import Integer
 import Testing
 
-@Suite("Integer.Shift")
-struct NumericIntegerShiftTests {
-    @Suite struct Unit {}
-    @Suite struct EdgeCase {}
-    @Suite struct Integration {}
-    @Suite(.serialized) struct Performance {}
+@Suite
+struct `Integer shifts apply rounding policies` {
+    @Suite struct `Unit tests` {}
+    @Suite struct `Edge cases` {}
+    @Suite struct `Integration tests` {}
+    @Suite(.serialized) struct `Performance tests` {}
 }
 
-extension NumericIntegerShiftTests.Unit {
+extension `Integer shifts apply rounding policies`.`Unit tests` {
     @Test
     func `shift down matches standard right shift operator`() throws {
         #expect(try 7.shifted.right(by: 1) == 7 >> 1)
@@ -109,7 +109,7 @@ extension NumericIntegerShiftTests.Unit {
     }
 }
 
-extension NumericIntegerShiftTests.EdgeCase {
+extension `Integer shifts apply rounding policies`.`Edge cases` {
     @Test
     func `large shift count`() throws {
         let value: Int8 = 127
