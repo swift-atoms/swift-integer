@@ -1,6 +1,6 @@
 extension Integer {
-    /// Converts to the destination binary format, rounding to nearest with ties to even.
-    /// Values beyond the format's finite range become signed infinity.
+
+
     public func approximation<Scalar: BinaryFloatingPoint>(as type: Scalar.Type) -> Scalar {
         let value = scaledApproximation(as: type)
         return Scalar(sign: isNegative ? .minus : .plus,
@@ -8,8 +8,8 @@ extension Integer {
             significand: value.significand.magnitude)
     }
 
-    /// A rounded finite leading significand and an unapplied binary exponent.
-    /// Keeping the exponent separate lets ratios of huge integers remain representable.
+
+
     public func scaledApproximation<Scalar: BinaryFloatingPoint>(
         as type: Scalar.Type
     ) -> (significand: Scalar, exponent: Int) {

@@ -1,5 +1,5 @@
-/// An exact signed integer with arbitrary precision.
-/// Storage grows as needed; there is no fixed numeric minimum or maximum.
+
+
 public struct Integer: Hashable, Sendable {
     internal let storage: Natural
     public let isNegative: Bool

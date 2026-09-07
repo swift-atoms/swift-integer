@@ -9,9 +9,9 @@ extension Integer {
         self.init(storage: Natural(words: words), negative: value < 0)
     }
 
-    /// Returns nil when this exact integer is outside the destination's range.
+
     public func exactly<T: Swift.FixedWidthInteger>(_ type: T.Type) -> T? {
-        // Parsing handles signed minima without negating an unrepresentable magnitude.
+
         T(description, radix: 10)
     }
 }

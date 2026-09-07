@@ -19,7 +19,7 @@ extension Integer {
     public static func -= (lhs: inout Self, rhs: Self) { lhs = lhs - rhs }
     public static func *= (lhs: inout Self, rhs: Self) { lhs = lhs * rhs }
 
-    /// Truncates toward zero. The remainder has the dividend's sign.
+
     public func quotientAndRemainder(dividingBy divisor: Self) throws(Error) -> (quotient: Self, remainder: Self) {
         guard !divisor.isZero else { throw .zeroDivisor }
         let result = storage.divided(by: divisor.storage)
@@ -33,7 +33,7 @@ extension Integer {
         Self(storage: Natural.gcd(lhs.storage, rhs.storage), negative: false)
     }
 
-    /// Returns an integer root only when the root exists and is exact.
+
     public func root(_ degree: Int) -> Self? {
         guard degree > 0, !isNegative || degree % 2 == 1,
             let root = storage.root(degree) else { return nil }

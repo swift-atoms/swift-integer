@@ -1,5 +1,5 @@
 extension Integer: Swift.LosslessStringConvertible {
-    /// Reads a signed base-ten integer, without whitespace or separators.
+
     public init?(_ description: String) {
         var digits = description.utf8[...]
         let negative = digits.first == 45
