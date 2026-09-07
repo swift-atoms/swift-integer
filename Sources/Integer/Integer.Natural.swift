@@ -127,10 +127,5 @@ extension Integer {
             return digits.reversed().joined()
         }
 
-        internal var scaledApproximation: (significand: Double, exponent: Int) {
-            let count = min(3, words.count)
-            let significand = words.suffix(count).reversed().reduce(0.0) { $0 * 4_294_967_296 + Double($1) }
-            return (significand, (words.count - count) * 32)
-        }
     }
 }
