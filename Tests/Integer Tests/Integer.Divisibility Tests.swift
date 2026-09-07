@@ -29,13 +29,13 @@ import Integer
 
 @Suite
 struct `Integer divisibility finds common factors and multiples` {
-    @Suite struct `Unit tests` {}
-    @Suite struct `Edge cases` {}
-    @Suite struct `Integration tests` {}
-    @Suite(.serialized) struct `Performance tests` {}
+    @Suite struct `Integer common factors and multiples obey divisibility identities` {}
+    @Suite struct `Integer common factors and multiples normalize signs and zero` {}
+    @Suite struct `No integer divisibility integration cases are defined` {}
+    @Suite(.serialized) struct `No integer divisibility performance cases are defined` {}
 }
 
-extension `Integer divisibility finds common factors and multiples`.`Unit tests` {
+extension `Integer divisibility finds common factors and multiples`.`Integer common factors and multiples obey divisibility identities` {
     @Test
     func `GCD of 24 and 36 equals 12`() {
         #expect(Integer.gcd(24, 36) == 12)
@@ -47,7 +47,7 @@ extension `Integer divisibility finds common factors and multiples`.`Unit tests`
     }
 
     @Test
-    func `GCD when one divides the other`() {
+    func `The greatest common divisor equals the divisor when one value divides the other`() {
         #expect(Integer.gcd(100, 25) == 25)
     }
 
@@ -67,7 +67,7 @@ extension `Integer divisibility finds common factors and multiples`.`Unit tests`
     }
 }
 
-extension `Integer divisibility finds common factors and multiples`.`Edge cases` {
+extension `Integer divisibility finds common factors and multiples`.`Integer common factors and multiples normalize signs and zero` {
     @Test
     func `GCD with zero returns other value`() {
         #expect(Integer.gcd(0, 5) == 5)
@@ -76,7 +76,7 @@ extension `Integer divisibility finds common factors and multiples`.`Edge cases`
     }
 
     @Test
-    func `GCD with negative values`() {
+    func `Greatest common divisors use the magnitudes of negative inputs`() {
         #expect(Integer.gcd(-24, 36) == 12)
         #expect(Integer.gcd(24, -36) == 12)
         #expect(Integer.gcd(-24, -36) == 12)
@@ -89,7 +89,7 @@ extension `Integer divisibility finds common factors and multiples`.`Edge cases`
     }
 
     @Test
-    func `LCM with negative values`() {
+    func `Least common multiples use the magnitudes of negative inputs`() {
         #expect(Integer.lcm(-4, 6) == 12)
         #expect(Integer.lcm(4, -6) == 12)
     }

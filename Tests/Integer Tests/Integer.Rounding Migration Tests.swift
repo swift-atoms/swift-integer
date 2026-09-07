@@ -3,13 +3,13 @@ import Testing
 
 @Suite
 struct `Integer shifts apply rounding policies` {
-    @Suite struct `Unit tests` {}
-    @Suite struct `Edge cases` {}
-    @Suite struct `Integration tests` {}
-    @Suite(.serialized) struct `Performance tests` {}
+    @Suite struct `Integer shifts follow directed nearest exact and odd rounding policies` {}
+    @Suite struct `Integer shifts handle large counts unsigned values and generic count types` {}
+    @Suite struct `No integer shift rounding integration cases are defined` {}
+    @Suite(.serialized) struct `No integer shift rounding performance cases are defined` {}
 }
 
-extension `Integer shifts apply rounding policies`.`Unit tests` {
+extension `Integer shifts apply rounding policies`.`Integer shifts follow directed nearest exact and odd rounding policies` {
     @Test
     func `shift down matches standard right shift operator`() throws {
         #expect(try 7.shifted.right(by: 1) == 7 >> 1)
@@ -51,7 +51,7 @@ extension `Integer shifts apply rounding policies`.`Unit tests` {
     }
 
     @Test
-    func `round away from zero`() throws {
+    func `Integer shifts round discarded fractions away from zero`() throws {
         #expect(try 3.shifted.right(by: 1, rounding: .away) == 2)
         #expect(try (-3).shifted.right(by: 1, rounding: .away) == -2)
     }
@@ -95,7 +95,7 @@ extension `Integer shifts apply rounding policies`.`Unit tests` {
     }
 
     @Test
-    func `round to odd`() throws {
+    func `Inexact integer shifts select an odd result`() throws {
         #expect(try 4.shifted.right(by: 1, rounding: .odd) == 2)
         #expect(try 3.shifted.right(by: 1, rounding: .odd) == 1)
         #expect(try 6.shifted.right(by: 1, rounding: .odd) == 3)
@@ -109,23 +109,23 @@ extension `Integer shifts apply rounding policies`.`Unit tests` {
     }
 }
 
-extension `Integer shifts apply rounding policies`.`Edge cases` {
+extension `Integer shifts apply rounding policies`.`Integer shifts handle large counts unsigned values and generic count types` {
     @Test
-    func `large shift count`() throws {
+    func `Integer shifts handle counts larger than the storage width`() throws {
         let value: Int8 = 127
         #expect(try value.shifted.right(by: 100, rounding: .down) == 0)
         #expect(try value.shifted.right(by: 100, rounding: .up) == 1)
     }
 
     @Test
-    func `unsigned integers`() throws {
+    func `Unsigned integer shifts follow the selected rounding policy`() throws {
         let value: UInt8 = 7
         #expect(try value.shifted.right(by: 1, rounding: .down) == 3)
         #expect(try value.shifted.right(by: 1, rounding: .up) == 4)
     }
 
     @Test
-    func `generic count types`() throws {
+    func `Integer shifts accept different integer count types`() throws {
         let value = 7
         let countInt8: Int8 = 1
         let countUInt: UInt = 1
