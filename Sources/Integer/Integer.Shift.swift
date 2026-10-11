@@ -92,4 +92,4 @@ extension Integer.Shift {
     }
 }
 
-extension Integer.Shift: Swift.Sendable where T: Swift.Sendable {}
+extension Integer.Shift: Swift::Sendable where T: Swift::Sendable {}

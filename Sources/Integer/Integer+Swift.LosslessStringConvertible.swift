@@ -1,4 +1,4 @@
-extension Integer: Swift.LosslessStringConvertible {
+extension Integer: Swift::LosslessStringConvertible {
 
     public init?(_ description: String) {
         var digits = description.utf8[...]

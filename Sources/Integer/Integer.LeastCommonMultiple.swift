@@ -9,12 +9,12 @@ extension Integer {
     }
 
 
-    public static func gcd<T: Swift.BinaryInteger>(_ lhs: T, _ rhs: T) -> Self {
+    public static func gcd<T: Swift::BinaryInteger>(_ lhs: T, _ rhs: T) -> Self {
         gcd(Self(lhs), Self(rhs))
     }
 
 
-    public static func lcm<T: Swift.BinaryInteger>(_ lhs: T, _ rhs: T) -> Self {
+    public static func lcm<T: Swift::BinaryInteger>(_ lhs: T, _ rhs: T) -> Self {
         lcm(Self(lhs), Self(rhs))
     }
 }

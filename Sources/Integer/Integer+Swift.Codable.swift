@@ -1,5 +1,5 @@
 #if !hasFeature(Embedded)
-extension Integer: Swift.Codable {
+extension Integer: Swift::Codable {
     public init(from decoder: any Decoder) throws {
         let container = try decoder.singleValueContainer()
         let text = try container.decode(String.self)

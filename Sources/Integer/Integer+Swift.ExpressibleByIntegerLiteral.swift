@@ -1,5 +1,5 @@
-extension Integer: Swift.ExpressibleByIntegerLiteral {
-    public init(integerLiteral value: Swift.StaticBigInt) {
+extension Integer: Swift::ExpressibleByIntegerLiteral {
+    public init(integerLiteral value: Swift::StaticBigInt) {
         let negative = value.signum() < 0
         var words: [UInt32] = []
         for index in 0..<((value.bitWidth + UInt.bitWidth - 1) / UInt.bitWidth) {

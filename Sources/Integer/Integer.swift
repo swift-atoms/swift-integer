@@ -8,15 +8,13 @@ public struct Integer: Hashable, Sendable {
         self.storage = storage
         self.isNegative = !storage.isZero && negative
     }
+}
 
+extension Integer {
     public static var zero: Self { Self(storage: Natural(), negative: false) }
     public static var one: Self { Self(storage: Natural(1), negative: false) }
     public var isZero: Bool { storage.isZero }
     public var absolute: Self { Self(storage: storage, negative: false) }
     public var isOdd: Bool { (storage.words.first ?? 0) & 1 != 0 }
     public var bitWidth: Int { storage.bitWidth }
-
-    public enum Error: Swift.Error, Hashable, Sendable {
-        case zeroDivisor
-    }
 }

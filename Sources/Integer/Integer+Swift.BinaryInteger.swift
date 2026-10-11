@@ -1,5 +1,5 @@
 extension Integer {
-    public init<T: Swift.BinaryInteger>(_ value: T) {
+    public init<T: Swift::BinaryInteger>(_ value: T) {
         var magnitude = value.magnitude
         var words: [UInt32] = []
         while magnitude != 0 {
@@ -10,7 +10,7 @@ extension Integer {
     }
 
 
-    public func exactly<T: Swift.FixedWidthInteger>(_ type: T.Type) -> T? {
+    public func exactly<T: Swift::FixedWidthInteger>(_ type: T.Type) -> T? {
 
         T(description, radix: 10)
     }

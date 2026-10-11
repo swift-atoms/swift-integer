@@ -13,14 +13,14 @@ let package = Package(
     dependencies: [.package(url: "https://github.com/swift-atoms/swift-rounding.git", branch: "main")],
     targets: [
         .target(name: "Integer", dependencies: [.product(name: "Rounding", package: "swift-rounding")], path: "Sources/Integer"),
-        .target(name: "Integer Foundation Integration", dependencies: ["Integer"], path: "Sources/Integer Foundation Integration"),
-        .target(name: "Integer Test Support", dependencies: ["Integer"], path: "Tests/Support"),
-        .testTarget(name: "Integer Tests", dependencies: ["Integer", "Integer Foundation Integration", "Integer Test Support"], path: "Tests/Integer Tests"),
+        .target(name: "Integer Foundation Integration", dependencies: [.target(name: "Integer")], path: "Sources/Integer Foundation Integration"),
+        .target(name: "Integer Test Support", dependencies: [.target(name: "Integer")], path: "Tests/Support"),
+        .testTarget(name: "Integer Tests", dependencies: [.target(name: "Integer"), .target(name: "Integer Test Support")], path: "Tests/Integer Tests"),
     ],
     swiftLanguageModes: [.v6]
 )
 
-for target in package.targets where ![.system, .binary, .plugin].contains(target.type) {
+for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
     target.swiftSettings = (target.swiftSettings ?? []) + [
         .strictMemorySafety(),
         .enableUpcomingFeature("ExistentialAny"),
