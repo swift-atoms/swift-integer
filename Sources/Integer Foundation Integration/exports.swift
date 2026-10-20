@@ -1,2 +1,2 @@
-@_exported public import Integer
 import Foundation
+@_exported public import Integer

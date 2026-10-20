@@ -1,6 +1,5 @@
-import Testing
-
 import Integer
+import Testing
 
 @Suite struct `Integer divisibility covers signed boundaries` {
     @Test func `Signed minima are widened before taking magnitudes`() {
@@ -14,7 +13,8 @@ import Integer
     @Test func `The divisibility identity holds across the signed byte domain`() throws {
         for a in -128...127 {
             for b in -12...12 {
-                let x = Integer(a), y = Integer(b)
+                let x = Integer(a)
+                let y = Integer(b)
                 let gcd = Integer.gcd(Int8(a), Int8(b))
                 let lcm = Integer.lcm(Int8(a), Int8(b))
                 #expect(gcd * lcm == (x * y).absolute)

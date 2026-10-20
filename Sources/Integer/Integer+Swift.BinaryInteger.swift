@@ -9,7 +9,6 @@ extension Integer {
         self.init(storage: Natural(words: words), negative: value < 0)
     }
 
-
     public func exactly<T: Swift::FixedWidthInteger>(_ type: T.Type) -> T? {
 
         T(description, radix: 10)

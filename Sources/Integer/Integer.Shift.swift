@@ -13,7 +13,6 @@ extension Integer {
     }
 }
 
-
 extension Integer.Shift {
 
     @inlinable

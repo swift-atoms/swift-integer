@@ -64,7 +64,8 @@ extension Integer.Natural {
             var carry: UInt64 = 0
             for right in rhs.words.indices {
                 let index = left + right
-                let product = UInt64(lhs.words[left]) * UInt64(rhs.words[right])
+                let product =
+                    UInt64(lhs.words[left]) * UInt64(rhs.words[right])
                     + UInt64(words[index]) + carry
                 words[index] = UInt32(truncatingIfNeeded: product)
                 carry = product >> 32

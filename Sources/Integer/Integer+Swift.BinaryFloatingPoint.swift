@@ -1,14 +1,13 @@
 extension Integer {
 
-
     public func approximation<Scalar: BinaryFloatingPoint>(as type: Scalar.Type) -> Scalar {
         let value = scaledApproximation(as: type)
-        return Scalar(sign: isNegative ? .minus : .plus,
+        return Scalar(
+            sign: isNegative ? .minus : .plus,
             exponent: Scalar.Exponent(clamping: value.exponent),
-            significand: value.significand.magnitude)
+            significand: value.significand.magnitude
+        )
     }
-
-
 
     public func scaledApproximation<Scalar: BinaryFloatingPoint>(
         as type: Scalar.Type
@@ -31,7 +30,8 @@ extension Integer {
             let guardIndex = last - 1
             let wordIndex = guardIndex / 32
             let mask = (UInt32(1) << (guardIndex % 32)) - 1
-            let sticky = storage.words[..<wordIndex].contains { $0 != 0 }
+            let sticky =
+                storage.words[..<wordIndex].contains { $0 != 0 }
                 || storage.words[wordIndex] & mask != 0
             if sticky || bit(at: last) { significand = significand.nextUp }
         }

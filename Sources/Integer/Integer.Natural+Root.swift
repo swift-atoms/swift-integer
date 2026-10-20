@@ -20,8 +20,7 @@ extension Integer.Natural {
                 if value > self { break }
             }
             if value == self { return middle }
-            if value < self { low = middle + Self(1) }
-            else { high = middle - Self(1) }
+            if value < self { low = middle + Self(1) } else { high = middle - Self(1) }
         }
         return nil
     }

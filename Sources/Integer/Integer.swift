@@ -1,5 +1,3 @@
-
-
 public struct Integer: Hashable, Sendable {
     internal let storage: Natural
     public let isNegative: Bool
