@@ -74,6 +74,9 @@ extension Integer.Natural {
         }
         return Self(words: words)
     }
+    internal static func += (lhs: inout Self, rhs: Self) { lhs = lhs + rhs }
+    internal static func -= (lhs: inout Self, rhs: Self) { lhs = lhs - rhs }
+    internal static func *= (lhs: inout Self, rhs: Self) { lhs = lhs * rhs }
 
     internal func divided(by divisor: Self) -> (quotient: Self, remainder: Self) {
         precondition(!divisor.isZero)
@@ -101,7 +104,7 @@ extension Integer.Natural {
                 }
                 if carry != 0 { remainder.words.append(carry) }
                 if remainder >= divisor {
-                    remainder = remainder - divisor
+                    remainder -= divisor
                     quotient[index] |= UInt32(1) << bit
                 }
             }

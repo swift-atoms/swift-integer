@@ -16,7 +16,7 @@ extension Integer.Natural {
             let middle = (low + high).divided(by: Self(2)).quotient
             var value = Self(1)
             for _ in 0..<degree {
-                value = value * middle
+                value *= middle
                 if value > self { break }
             }
             if value == self { return middle }

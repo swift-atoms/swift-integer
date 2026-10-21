@@ -9,7 +9,7 @@ extension Integer: Swift::ExpressibleByIntegerLiteral {
             }
         }
         var magnitude = Natural(words: words)
-        if negative { magnitude = magnitude + Natural(1) }
+        if negative { magnitude += Natural(1) }
         self.init(storage: magnitude, negative: negative)
     }
 }
