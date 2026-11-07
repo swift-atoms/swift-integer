@@ -33,7 +33,7 @@ extension Integer.Natural {
     internal static func + (lhs: Self, rhs: Self) -> Self {
         var words: [UInt32] = []
         var carry: UInt64 = 0
-        for index in 0..<max(lhs.words.count, rhs.words.count) {
+        (0..<max(lhs.words.count, rhs.words.count)).forEach { index in
             let left = index < lhs.words.count ? UInt64(lhs.words[index]) : 0
             let right = index < rhs.words.count ? UInt64(rhs.words[index]) : 0
             let sum = left + right + carry
@@ -95,7 +95,7 @@ extension Integer.Natural {
         var quotient = [UInt32](repeating: 0, count: words.count)
         var remainder = Self()
         for index in words.indices.reversed() {
-            for bit in (0..<32).reversed() {
+            (0..<32).reversed().forEach { bit in
                 var carry = (words[index] >> bit) & 1
                 for position in remainder.words.indices {
                     let next = remainder.words[position] >> 31

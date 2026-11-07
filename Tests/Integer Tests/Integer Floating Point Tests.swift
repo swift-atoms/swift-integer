@@ -3,7 +3,7 @@ import Testing
 
 @Suite struct `Integer conversion rounds in the requested floating point format` {
     @Test func `Signed short integers agree with Swift conversions`() {
-        for value in Int(Int16.min)...Int(Int16.max) {
+        (Int(Int16.min)...Int(Int16.max)).forEach { value in
             let integer = Integer(value)
             #expect(integer.approximation(as: Float16.self) == Float16(value))
             #expect(integer.approximation(as: Float.self) == Float(value))

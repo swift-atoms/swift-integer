@@ -22,7 +22,7 @@ extension Integer {
         }
         var significand: Scalar = 0
         var weight: Scalar = 1
-        for index in (last..<width).reversed() {
+        (last..<width).reversed().forEach { index in
             if bit(at: index) { significand += weight }
             weight /= 2
         }
