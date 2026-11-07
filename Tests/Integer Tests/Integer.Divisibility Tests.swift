@@ -1,41 +1,53 @@
 import Integer
 import Testing
 
-@Suite struct `Integer divisibility covers signed boundaries` {
-    @Test func `Signed minima are widened before taking magnitudes`() {
-        #expect(Integer.gcd(Int8.min, 2) == 2)
-        #expect(Integer.gcd(Int8.min, 0) == 128)
-        #expect(Integer.lcm(Int8.min, 3) == 384)
-        #expect(Integer.lcm(Int64.min, 3).description == "27670116110564327424")
-        #expect(Integer.lcm(Int8.min, 3).exactly(Int8.self) == nil)
-    }
+enum `Integer.Divisibility Tests` {}
 
-    @Test func `The divisibility identity holds across the signed byte domain`() throws {
-        for a in -128...127 {
-            for b in -12...12 {
-                let x = Integer(a)
-                let y = Integer(b)
-                let gcd = Integer.gcd(Int8(a), Int8(b))
-                let lcm = Integer.lcm(Int8(a), Int8(b))
-                #expect(gcd * lcm == (x * y).absolute)
-                if !gcd.isZero {
-                    #expect(try x.quotientAndRemainder(dividingBy: gcd).remainder == .zero)
-                    #expect(try y.quotientAndRemainder(dividingBy: gcd).remainder == .zero)
+extension `Integer.Divisibility Tests` {
+    @Suite struct `Integer divisibility covers signed boundaries` {
+        @Test func `Signed minima are widened before taking magnitudes`() {
+            #expect(Integer.gcd(Int8.min, 2) == 2)
+            #expect(Integer.gcd(Int8.min, 0) == 128)
+            #expect(Integer.lcm(Int8.min, 3) == 384)
+            #expect(Integer.lcm(Int64.min, 3).description == "27670116110564327424")
+            #expect(Integer.lcm(Int8.min, 3).exactly(Int8.self) == nil)
+        }
+
+        @Test func `The divisibility identity holds across the signed byte domain`() throws {
+            for a in -128...127 {
+                for b in -12...12 {
+                    let x = Integer(a)
+                    let y = Integer(b)
+                    let gcd = Integer.gcd(Int8(a), Int8(b))
+                    let lcm = Integer.lcm(Int8(a), Int8(b))
+                    #expect(gcd * lcm == (x * y).absolute)
+                    if !gcd.isZero {
+                        #expect(try x.quotientAndRemainder(dividingBy: gcd).remainder == .zero)
+                        #expect(try y.quotientAndRemainder(dividingBy: gcd).remainder == .zero)
+                    }
                 }
             }
         }
     }
 }
 
-@Suite
-struct `Integer divisibility finds common factors and multiples` {
+extension `Integer.Divisibility Tests` {
+    @Suite
+    struct `Integer divisibility finds common factors and multiples` {
+    }
+}
+
+extension `Integer.Divisibility Tests`.`Integer divisibility finds common factors and multiples` {
     @Suite struct `Integer common factors and multiples obey divisibility identities` {}
+
     @Suite struct `Integer common factors and multiples normalize signs and zero` {}
+
     @Suite struct `No integer divisibility integration cases are defined` {}
+
     @Suite(.serialized) struct `No integer divisibility performance cases are defined` {}
 }
 
-extension `Integer divisibility finds common factors and multiples`.`Integer common factors and multiples obey divisibility identities` {
+extension `Integer.Divisibility Tests`.`Integer divisibility finds common factors and multiples`.`Integer common factors and multiples obey divisibility identities` {
     @Test
     func `GCD of 24 and 36 equals 12`() {
         #expect(Integer.gcd(24, 36) == 12)
@@ -67,7 +79,7 @@ extension `Integer divisibility finds common factors and multiples`.`Integer com
     }
 }
 
-extension `Integer divisibility finds common factors and multiples`.`Integer common factors and multiples normalize signs and zero` {
+extension `Integer.Divisibility Tests`.`Integer divisibility finds common factors and multiples`.`Integer common factors and multiples normalize signs and zero` {
     @Test
     func `GCD with zero returns other value`() {
         #expect(Integer.gcd(0, 5) == 5)

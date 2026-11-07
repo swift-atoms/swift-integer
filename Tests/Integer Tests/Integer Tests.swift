@@ -2,57 +2,61 @@ import Foundation
 import Integer
 import Testing
 
-@Suite struct `Integer arithmetic preserves exact values` {
-    @Test func `Signed arithmetic agrees with a machine integer oracle`() throws {
-        for a in -75...75 {
-            for b in -35...35 {
-                let x = Integer(a)
-                let y = Integer(b)
-                #expect(x + y == Integer(a + b))
-                #expect(x - y == Integer(a - b))
-                #expect(x * y == Integer(a * b))
-                #expect((x < y) == (a < b))
-                if b != 0 {
-                    let result = try x.quotientAndRemainder(dividingBy: y)
-                    #expect(result.quotient == Integer(a / b))
-                    #expect(result.remainder == Integer(a % b))
+enum `Integer Tests` {}
+
+extension `Integer Tests` {
+    @Suite struct `Integer arithmetic preserves exact values` {
+        @Test func `Signed arithmetic agrees with a machine integer oracle`() throws {
+            for a in -75...75 {
+                for b in -35...35 {
+                    let x = Integer(a)
+                    let y = Integer(b)
+                    #expect(x + y == Integer(a + b))
+                    #expect(x - y == Integer(a - b))
+                    #expect(x * y == Integer(a * b))
+                    #expect((x < y) == (a < b))
+                    if b != 0 {
+                        let result = try x.quotientAndRemainder(dividingBy: y)
+                        #expect(result.quotient == Integer(a / b))
+                        #expect(result.remainder == Integer(a % b))
+                    }
                 }
             }
         }
-    }
 
-    @Test func `Literals parse and fixed width conversions are explicit`() throws {
-        let large: Integer = 123_456_789_012_345_678_901_234_567_890_123_456_789_012_345_678_901_234_567_890
-        #expect(large.description == "123456789012345678901234567890123456789012345678901234567890")
-        let negative: Integer = -123_456_789_012_345_678_901_234_567_890_123_456_789_012_345_678_901_234_567_890
-        #expect(negative == -large)
-        #expect(Integer(large.description) == large)
-        #expect(Integer("-0") == .zero)
-        for text in ["", "+", "-", " 1", "1 ", "1.0", "1/2", "١"] { #expect(Integer(text) == nil) }
-        #expect(Integer(Int128.min).exactly(Int128.self) == .min)
-        #expect(Integer(UInt128.max).exactly(UInt128.self) == .max)
-        #expect((Integer(UInt128.max) + 1).exactly(UInt128.self) == nil)
-        #expect(Integer(-1).exactly(UInt128.self) == nil)
-        #expect(Integer(Int8.min).exactly(Int8.self) == .min)
-        #expect(Integer(UInt8.max).exactly(UInt8.self) == .max)
-        #expect(Integer(UInt8.max).description == "255")
-        #expect(Integer(Int8.min).description == "-128")
-        #expect(try JSONDecoder().decode(Integer.self, from: JSONEncoder().encode(large)) == large)
-    }
+        @Test func `Literals parse and fixed width conversions are explicit`() throws {
+            let large: Integer = 123_456_789_012_345_678_901_234_567_890_123_456_789_012_345_678_901_234_567_890
+            #expect(large.description == "123456789012345678901234567890123456789012345678901234567890")
+            let negative: Integer = -123_456_789_012_345_678_901_234_567_890_123_456_789_012_345_678_901_234_567_890
+            #expect(negative == -large)
+            #expect(Integer(large.description) == large)
+            #expect(Integer("-0") == .zero)
+            for text in ["", "+", "-", " 1", "1 ", "1.0", "1/2", "١"] { #expect(Integer(text) == nil) }
+            #expect(Integer(Int128.min).exactly(Int128.self) == .min)
+            #expect(Integer(UInt128.max).exactly(UInt128.self) == .max)
+            #expect((Integer(UInt128.max) + 1).exactly(UInt128.self) == nil)
+            #expect(Integer(-1).exactly(UInt128.self) == nil)
+            #expect(Integer(Int8.min).exactly(Int8.self) == .min)
+            #expect(Integer(UInt8.max).exactly(UInt8.self) == .max)
+            #expect(Integer(UInt8.max).description == "255")
+            #expect(Integer(Int8.min).description == "-128")
+            #expect(try JSONDecoder().decode(Integer.self, from: JSONEncoder().encode(large)) == large)
+        }
 
-    @Test func `Roots and common divisors remain exact and division by zero fails`() throws {
-        #expect(Integer(81).root(4) == 3)
-        #expect(Integer(-27).root(3) == -3)
-        #expect(Integer(-27).root(2) == nil)
-        #expect(Integer(17).root(2) == nil)
-        #expect(Integer(0).root(0) == nil)
-        #expect(Integer.gcd(-84, 30) == 6)
-        #expect(Integer.gcd(0, 0) == 0)
-        #expect(throws: Integer.Error.zeroDivisor) { try Integer.one.quotientAndRemainder(dividingBy: .zero) }
+        @Test func `Roots and common divisors remain exact and division by zero fails`() throws {
+            #expect(Integer(81).root(4) == 3)
+            #expect(Integer(-27).root(3) == -3)
+            #expect(Integer(-27).root(2) == nil)
+            #expect(Integer(17).root(2) == nil)
+            #expect(Integer(0).root(0) == nil)
+            #expect(Integer.gcd(-84, 30) == 6)
+            #expect(Integer.gcd(0, 0) == 0)
+            #expect(throws: Integer.Error.zeroDivisor) { try Integer.one.quotientAndRemainder(dividingBy: .zero) }
+        }
     }
 }
 
-extension `Integer arithmetic preserves exact values` {
+extension `Integer Tests`.`Integer arithmetic preserves exact values` {
     @Test func `Arbitrary precision operations agree with independent oracle fixtures`() throws {
         let fixtures: [(String, String, String, String, String, String)] = [
             (

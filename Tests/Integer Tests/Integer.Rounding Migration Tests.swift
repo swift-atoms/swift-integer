@@ -1,15 +1,25 @@
 import Integer
 import Testing
 
-@Suite
-struct `Integer shifts apply rounding policies` {
+enum `Integer.Rounding Migration Tests` {}
+
+extension `Integer.Rounding Migration Tests` {
+    @Suite
+    struct `Integer shifts apply rounding policies` {
+    }
+}
+
+extension `Integer.Rounding Migration Tests`.`Integer shifts apply rounding policies` {
     @Suite struct `Integer shifts follow directed nearest exact and odd rounding policies` {}
+
     @Suite struct `Integer shifts handle large counts unsigned values and generic count types` {}
+
     @Suite struct `No integer shift rounding integration cases are defined` {}
+
     @Suite(.serialized) struct `No integer shift rounding performance cases are defined` {}
 }
 
-extension `Integer shifts apply rounding policies`.`Integer shifts follow directed nearest exact and odd rounding policies` {
+extension `Integer.Rounding Migration Tests`.`Integer shifts apply rounding policies`.`Integer shifts follow directed nearest exact and odd rounding policies` {
     @Test
     func `shift down matches standard right shift operator`() throws {
         #expect(try 7.shifted.right(by: 1) == 7 >> 1)
@@ -109,7 +119,7 @@ extension `Integer shifts apply rounding policies`.`Integer shifts follow direct
     }
 }
 
-extension `Integer shifts apply rounding policies`.`Integer shifts handle large counts unsigned values and generic count types` {
+extension `Integer.Rounding Migration Tests`.`Integer shifts apply rounding policies`.`Integer shifts handle large counts unsigned values and generic count types` {
     @Test
     func `Integer shifts handle counts larger than the storage width`() throws {
         let value: Int8 = 127
