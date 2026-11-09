@@ -27,5 +27,16 @@ extension `Integer.Shift Boundary Tests` {
             #expect(try UInt8(255).shifted.right(by: UInt.max, rounding: .up) == 1)
             #expect(try Int8(1).shifted.right(by: Int.min) == 0)
         }
+
+        @Test func `Negative counts shift left and exact rejects lost high bits`() throws {
+            #expect(try Int8(3).shifted.right(by: -2, rounding: .exact) == 12)
+            #expect(try Int8(-64).shifted.right(by: -1, rounding: .exact) == -128)
+            #expect(try UInt8(255).shifted.right(by: -1, rounding: .down) == 254)
+            #expect(throws: Rounding.Error.inexact) { try UInt8(255).shifted.right(by: -1, rounding: .exact) }
+            #expect(throws: Rounding.Error.inexact) { try Int8(64).shifted.right(by: -1, rounding: .exact) }
+            #expect(throws: Rounding.Error.inexact) { try Int8(1).shifted.right(by: -8, rounding: .exact) }
+            #expect(throws: Rounding.Error.inexact) { try Int8(1).shifted.right(by: Int.min, rounding: .exact) }
+            #expect(try Int8(0).shifted.right(by: Int.min, rounding: .exact) == 0)
+        }
     }
 }

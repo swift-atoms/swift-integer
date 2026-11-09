@@ -21,7 +21,17 @@ extension Integer.Shift {
         rounding rule: Rounding = .down
     ) throws(Rounding.Error) -> T {
 
-        if count <= 0 { return value >> count }
+        if count == 0 { return value }
+
+        // A negative count shifts left: no low bits are lost, so only `.exact`
+        // can fail, when high bits (or the sign) do not survive the shift.
+        if count < 0 {
+            let shifted = value >> count
+            if case .exact = rule, shifted >> count.magnitude != value {
+                throw .inexact
+            }
+            return shifted
+        }
 
         if count >= value.bitWidth {
 
