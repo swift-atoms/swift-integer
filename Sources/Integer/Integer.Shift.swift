@@ -15,6 +15,11 @@ extension Integer {
 
 extension Integer.Shift {
 
+    /// Shifts right by `count`, rounding the bits shifted out by `rule`.
+    ///
+    /// A negative `count` shifts left: no low bits are lost, so `rule` has no
+    /// effect, except that `.exact` throws `.inexact` when high bits or the
+    /// sign do not survive the shift.
     @inlinable
     public func right(
         by count: Int,
@@ -23,8 +28,6 @@ extension Integer.Shift {
 
         if count == 0 { return value }
 
-        // A negative count shifts left: no low bits are lost, so only `.exact`
-        // can fail, when high bits (or the sign) do not survive the shift.
         if count < 0 {
             let shifted = value >> count
             if case .exact = rule, shifted >> count.magnitude != value {
