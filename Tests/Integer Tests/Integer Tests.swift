@@ -239,3 +239,19 @@ extension `Integer Tests`.`Integer arithmetic preserves exact values` {
         }
     }
 }
+
+extension `Integer Tests` {
+    @Suite struct `Clamping conversion` {
+        @Test func `Clamping equals the exact conversion in range and the nearest bound outside it`() {
+            (-300...300).forEach { value in
+                let integer = Integer(value)
+                #expect(integer.clamped(Int8.self) == Int8(clamping: value))
+                #expect(integer.clamped(UInt8.self) == UInt8(clamping: value))
+                if let exact = integer.exactly(Int8.self) { #expect(integer.clamped(Int8.self) == exact) }
+            }
+            #expect((Integer(UInt128.max) + 1).clamped(UInt128.self) == .max)
+            #expect((Integer(Int128.min) - 1).clamped(Int128.self) == .min)
+            #expect(Integer(Int.max).clamped(Int.self) == .max)
+        }
+    }
+}

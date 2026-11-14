@@ -115,6 +115,13 @@ extension Integer {
 
         T(description, radix: 10)
     }
+
+    /// The value in `type`, or the nearest bound of `type` when the value lies outside its range.
+    public func clamped<T: Swift::FixedWidthInteger>(_ type: T.Type) -> T {
+        if self < Integer(T.min) { return .min }
+        if self > Integer(T.max) { return .max }
+        return exactly(type) ?? .max
+    }
 }
 
 #if !hasFeature(Embedded)
